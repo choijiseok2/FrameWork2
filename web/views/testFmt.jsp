@@ -8,7 +8,7 @@
 </head>
 <body>
 <h4>
-testCore.jsp에서 session에 저장한 Sum의 변수값 ${sum}
+testCore.jsp에서 session에 저장한 Sum의 변수값 = ${sum}
 </h4>
 </body>
 </html>

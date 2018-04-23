@@ -7,7 +7,7 @@
 <title>test JSTL</title>
 </head>
 <body>
-<h3><a href="views/testCore.jsp"> test core </a></h3>
+<h3><a href="views/testCore.jsp?name='바보'"> test core </a></h3>
 <h3><a href="views/testFmt.jsp"> test fmt </a></h3>
 <h3><a href="views/testfunction.jsp"> test function </a></h3>
 </body>
