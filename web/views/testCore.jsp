@@ -1,3 +1,4 @@
+<%@page import="java.util.Locale.Category"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html >
@@ -51,7 +52,7 @@ c:if 태그: if문과 같은 로직을 처리하는 태그
 <li><h4>
 c:choose 태그 : switch 문과 같은 일을 하는 태그
 </h4>
-<c:set var="no" value="3" />
+<c:set var="no" value="1" />
 <c:choose>
 	<c:when test="${no eq 1}"> 반갑</c:when>
 	<c:when test="${no eq 2}"> 안녕</c:when>
@@ -59,12 +60,52 @@ c:choose 태그 : switch 문과 같은 일을 하는 태그
 
 </c:choose>
 
-
-
-
 </li>
-<li><h4></h4></li>
-<li><h4></h4></li>
+<li><h4> c:forEach 태그 : for문과 같은 태그</h4></li>
+<c:forEach var="cnt" begin="1" end="10">
+	반복 확인 : ${cnt}<br>
+</c:forEach>
+
+<c:forEach var="count" begin="1" end="20" step="2">
+	반복값  : ${count}<br>
+</c:forEach>
+
+<c:forEach var="size" begin="1" end="7">
+<font size="${size}" > 글자크기 ${size}</font>
+</c:forEach>
+<br>
+<%
+java.util.ArrayList<String> list=new java.util.ArrayList<String>();
+list.add("dd");
+list.add("ads");
+list.add("abas");
+list.add("h425");
+list.add("m7587");
+list.add("ney5423");
+list.add("n8759yhgfd");
+%>
+<c:forEach var="category" varStatus="status" items="<%=list %>">
+${status.index} : ${category }
+</c:forEach>
+
+<li><h4>
+c:forTokens 태그 :java.util.StringTokenizer 클래스와 같은 역활을 수행.
+</h4></li>
+<ul>
+<c:forTokens items="yellow pink blue green red" delims=" " var="clr">
+<li> 
+${clr}
+</li>
+</c:forTokens>
+</ul>
+다른것
+<ul>
+<c:forTokens items="yellow-pink*blue_green red" delims="/*-_ " var="clr2">
+<li> 
+${clr2}
+</li>
+</c:forTokens>
+</ul>
 <li><h4></h4></li>
 <li><h4></h4></li>
 <li><h4></h4></li>
