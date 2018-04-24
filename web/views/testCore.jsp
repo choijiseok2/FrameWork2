@@ -1,12 +1,15 @@
+<%@page import="java.util.logging.SimpleFormatter"%>
 <%@page import="java.util.Locale.Category"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <!DOCTYPE html >
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 <h1>코어 테스트</h1>
@@ -106,13 +109,92 @@ ${clr2}
 </li>
 </c:forTokens>
 </ul>
-<li><h4></h4></li>
-<li><h4></h4></li>
-<li><h4></h4></li>
-<li><h4></h4></li>
-<li><h4></h4></li>
-<li><h4></h4></li>
-<li><h4></h4></li>
+<li><h4>다른 jsp페이지나 서블릿으로 연결처리하는 값도 같이 전달 가능.<Br>
+<a href="testFmt.jsp?no=123">testFmt로 이동 a태그를 이용.</a><Br>
+<c:url var="testf" value="testFmt.jsp"> <c:param name="no" value="123" /> </c:url>
+<a href="${testf}"> c:url을 이용해서 이동 </a>
+
+</h4></li>
+<hr>
+<li><h4>c:import 태그: jsp의 include 지시자 또는 표준액션태그인 jsp:include 태그와 같은 기능을 제공한다.</h4></li>
+<%@ include file="importSample.jsp" %>
+<c:import url="importSample.jsp?content=send by Ctag " />
+
+<li><h4>
+c:catch태그: 자바의 try catch 문과 같은 기능을 수행하는 기능입니다.
+</h4></li>
+<c:catch>
+<!-- 자바의 try영역과 같은 위치. -->
+<c:set var="num" value="null" />
+<c:set var="num3" value="77" />
+나눈결과 : ${ num3/num }
+</c:catch >
+<li><h4>
+c:redirct 태그: response.sendRedirect()메소드와 같은 역활.
+</h4>
+<c:set var="move" value="0" />
+<c:if test="${move eq 1}">
+<c:redirect url="testFmt.jsp"> </c:redirect>
+</c:if>
+<button onclick="changemove()">페이지이동</button>
+</li>
+<li>
+<h4>fmt:formatDate 태그: 날짜와 시간에 포맷 적용하는 태그</h4>
+java.text.SimpleDateFormat 클래스와 format()메소드 사용과 동일함.<br>
+value 속성에는 java.util.date 클래스 객체를 사용해야함.<br>
+<fmt:formatDate value="<%= new java.util.Date() %>"/><Br>
+<c:set var="date" value="<%= new java.util.Date() %>" />
+<fmt:formatDate value="${date}" /><br />
+<hr>
+[short] : <fmt:formatDate value="${date}" type="both" dateStyle='short'  timeStyle="short" /> <br/>
+[medium] : <fmt:formatDate value="${date}" type="both" dateStyle='medium' timeStyle="medium" /> <br/>
+[long] : <fmt:formatDate value="${date}" type="both" dateStyle='long' timeStyle="long" /> <br/>
+[full] : <fmt:formatDate value="${date}" type="both" dateStyle='full' timeStyle="full" /> <br/>
+<hr>
+현재 날짜 : <fmt:formatDate value="${date}" type="date" pattern="yyyy/MM/dd (E)" /> <br/>
+현재 시각 : <fmt:formatDate value="${date}" type="time" pattern="(a) hh:mm:ss" /> <br/>
+<hr>
+
+</li>
+<li><h4>
+fmt:setLocale 태그: 지역대를 설정하는 태그</h4></li>
+java.util.locale 클래스와 같은 기능<br>
+<fmt:setLocale value="ko_kr"/>
+미국 지역대로 설정하는 경우 시분초또한 미국식으로 바끤다.<br>
+<fmt:setLocale value="en_us"/>
+<c:set var="us" value="<%=new java.util.Date() %>" />
+<fmt:formatDate value="${us}" dateStyle="full" type="both" timeStyle="full" />
+<li><h4>fmt time zone 태그: 시간대를 설정하는 태그
+setTimeZone 사용해도됨</h4></li>
+<fmt:setLocale value="ko_kr"/>
+한국 현재 시간: <fmt:formatDate value="${date}" type="both" /><br>
+뉴욕 현재 시간: <fmt:timeZone value="America/New_York">
+<fmt:formatDate value="<%= new java.util.Date() %>" type="both"/>
+</fmt:timeZone>
+<hr>
+encodingSample.jsp 파일로 form정보 전송하기<br>
+<form action="encodingSample.jsp" method="post">
+전송값 :<input type="text" name="test">
+<br> <input type="submit">
+</form>
+<li><h4>
+fmt:formatNumber 태그: 숫자 데이터 변환.
+</h4></li>
+<hr>
+숫자 그대로 출력 : 
+<fmt:formatNumber value="123456789" groupingUsed="false"> </fmt:formatNumber><br>
+천단위로 구분기호 적용:
+<fmt:formatNumber value="123456789" groupingUsed="true"> </fmt:formatNumber><br>
+실수값 소수 자릿수 지정<br>
+<fmt:formatNumber value="1.23456789" pattern="#.###" /><br>
+<fmt:formatNumber value="1.2" pattern="#.###" /><br>
+퍼센트로 출력<br>
+<fmt:formatNumber value="0.12" type="percent" /> <br />
+<fmt:formatNumber value="123456789" type="currency" /> <br/> 
+<fmt:formatNumber value="123456789" type="currency"
+currencySymbol="$" />
+
+
 <li><h4></h4></li>
 <li><h4></h4></li>
 <li><h4></h4></li>
